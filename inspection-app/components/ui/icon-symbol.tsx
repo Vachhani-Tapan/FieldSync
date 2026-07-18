@@ -20,6 +20,7 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'chart.bar.fill': 'dashboard',
   'doc.text.fill': 'create',
+  'camera.fill': 'photo-camera',
 } as IconMapping;
 
 /**
