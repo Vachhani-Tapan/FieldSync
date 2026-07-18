@@ -1,22 +1,19 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
+import { useSurveys } from '@/context/SurveyContext';
 
 export default function Module1Screen() {
+  const router = useRouter();
+  const { surveys, stats } = useSurveys();
+
   const studentDetails = {
     name: 'Tapan Vachhani',
     studentId: '002',
     department: 'Field Inspection',
     session: '2025-2026',
   };
-
-  const [surveyStats] = useState({ total: 12, completed: 8, pending: 3, flagged: 1, });
-
-  const [recentSurveys] = useState([
-    { id: 'SRV-1042', siteName: 'Sector 5 Complex', location: 'Kolkata', status: 'Completed' },
-    { id: 'SRV-1043', siteName: 'Lake View Block B', location: 'Salt Lake', status: 'In Progress' },
-    { id: 'SRV-1044', siteName: 'Highway 12 Overpass', location: 'Rajarhat', status: 'Flagged' },
-  ]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -33,45 +30,47 @@ export default function Module1Screen() {
           <Text style={styles.text}>Session: {studentDetails.session}</Text>
         </View>
 
-        <Text style={styles.sectionHeader}>Today's Survey Count</Text>
+        <Text style={styles.sectionHeader}>Today&apos;s Survey Count</Text>
         <View style={styles.statsRow}>
           <View style={styles.statBox}>
-            <Text style={styles.statNumber}>{surveyStats.total}</Text>
+            <Text style={styles.statNumber}>{stats.total}</Text>
             <Text style={styles.statLabel}>Total</Text>
           </View>
           <View style={styles.statBox}>
-            <Text style={styles.statNumber}>{surveyStats.completed}</Text>
+            <Text style={styles.statNumber}>{stats.completed}</Text>
             <Text style={styles.statLabel}>Completed</Text>
           </View>
           <View style={styles.statBox}>
-            <Text style={styles.statNumber}>{surveyStats.pending}</Text>
+            <Text style={styles.statNumber}>{stats.pending}</Text>
             <Text style={styles.statLabel}>Pending</Text>
           </View>
           <View style={styles.statBox}>
-            <Text style={styles.statNumber}>{surveyStats.flagged}</Text>
+            <Text style={styles.statNumber}>{stats.flagged}</Text>
             <Text style={styles.statLabel}>Flagged</Text>
           </View>
         </View>
 
         <Text style={styles.sectionHeader}>Quick Actions</Text>
         <View style={styles.actionsRow}>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => Alert.alert('Action', 'New Survey')}>
+          <TouchableOpacity style={styles.actionBtn} onPress={() => router.navigate('/(tabs)/module2')}>
             <Text style={styles.actionBtnText}>+ New Survey</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => Alert.alert('Action', 'View Location')}>
+          <TouchableOpacity style={styles.actionBtn}>
             <Text style={styles.actionBtnText}>Location</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => Alert.alert('Action', 'Contacts')}>
+          <TouchableOpacity style={styles.actionBtn}>
             <Text style={styles.actionBtnText}>Contacts</Text>
           </TouchableOpacity>
         </View>
 
         <Text style={styles.sectionHeader}>Recent Survey Summary</Text>
-        {recentSurveys.map((item) => (
-          <View key={item.id} style={styles.surveyItem}>
+        {surveys.slice(0, 5).map((item) => (
+          <View key={item.id} style={[styles.surveyItem, item.status === 'Flagged' && styles.flaggedItem]}>
             <Text style={styles.surveyTitle}>{item.id} - {item.siteName}</Text>
-            <Text style={styles.text}>Location: {item.location}</Text>
-            <Text style={styles.text}>Status: {item.status}</Text>
+            <Text style={styles.text}>Client: {item.clientName}</Text>
+            <Text style={styles.text}>Priority: {item.priority}</Text>
+            <Text style={styles.text}>Date: {item.date}</Text>
+            <Text style={[styles.text, styles.statusText]}>Status: {item.status}</Text>
           </View>
         ))}
       </ScrollView>
@@ -176,9 +175,17 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginBottom: 8,
   },
+  flaggedItem: {
+    borderColor: '#dc3545',
+    backgroundColor: '#fff5f5',
+  },
   surveyTitle: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 4,
+  },
+  statusText: {
+    fontWeight: '600',
+    marginTop: 2,
   },
 });
