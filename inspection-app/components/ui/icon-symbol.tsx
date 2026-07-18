@@ -21,6 +21,7 @@ const MAPPING = {
   'chart.bar.fill': 'dashboard',
   'doc.text.fill': 'create',
   'camera.fill': 'photo-camera',
+  'location.fill': 'location-on',
 } as IconMapping;
 
 /**

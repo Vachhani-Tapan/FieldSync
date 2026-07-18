@@ -55,11 +55,11 @@ export default function Module1Screen() {
           <TouchableOpacity style={styles.actionBtn} onPress={() => router.navigate('/(tabs)/module2')}>
             <Text style={styles.actionBtnText}>+ New Survey</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn}>
-            <Text style={styles.actionBtnText}>Location</Text>
+          <TouchableOpacity style={styles.actionBtn} onPress={() => router.navigate('/(tabs)/module3')}>
+            <Text style={styles.actionBtnText}>📷 Site Photo</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn}>
-            <Text style={styles.actionBtnText}>Contacts</Text>
+          <TouchableOpacity style={styles.actionBtn} onPress={() => router.navigate('/(tabs)/module4')}>
+            <Text style={styles.actionBtnText}>📍 Location</Text>
           </TouchableOpacity>
         </View>
 
