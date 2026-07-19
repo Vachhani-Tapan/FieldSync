@@ -22,6 +22,19 @@ export default function Module3Screen() {
   const [savedToGallery, setSavedToGallery] = useState(false);
 
   const requestCameraPermission = async () => {
+    if (Platform.OS === 'web' && typeof navigator !== 'undefined' && navigator.mediaDevices) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        stream.getTracks().forEach((t) => t.stop());
+        return true;
+      } catch {
+        Alert.alert(
+          'Camera Permission Required',
+          'FieldSync needs camera access to capture inspection photos. Please allow camera permission in your browser.'
+        );
+        return false;
+      }
+    }
     const { status, canAskAgain } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== 'granted') {
       Alert.alert(
@@ -36,6 +49,42 @@ export default function Module3Screen() {
   };
 
   const openCamera = async () => {
+    const isWeb = Platform.OS === 'web' && typeof navigator !== 'undefined' && navigator.mediaDevices;
+
+    if (isWeb) {
+      setLoading(true);
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const video = document.createElement('video');
+        video.style.position = 'fixed';
+        video.style.top = '-9999px';
+        video.style.opacity = '0';
+        document.body.appendChild(video);
+        video.srcObject = stream;
+        await video.play();
+
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+
+        await new Promise((resolve) => { setTimeout(resolve, 600); });
+
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0);
+        stream.getTracks().forEach((t) => t.stop());
+        document.body.removeChild(video);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+        setPhoto({ uri: dataUrl, width: canvas.width, height: canvas.height });
+        setCapturedAt(new Date());
+        setSavedToGallery(false);
+      } catch (err) {
+        Alert.alert('Camera Error', err.message || 'Could not access webcam.');
+      }
+      setLoading(false);
+      return;
+    }
+
     setLoading(true);
     try {
       const hasPermission = await requestCameraPermission();

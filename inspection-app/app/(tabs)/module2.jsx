@@ -55,26 +55,17 @@ export default function Module2Screen() {
         date: date.trim(),
       });
 
-      Alert.alert(
-        'Survey Created',
-        `Survey ${newSurvey.id} created successfully!\n\nSite: ${siteName}\nClient: ${clientName}\nLocation: ${location}\nPriority: ${priority}\nDate: ${date}`,
-        [
-          {
-            text: 'OK',
-            onPress: () => {
-              setSiteName('');
-              setClientName('');
-              setContact('');
-              setLocation('');
-              setDescription('');
-              setNotes('');
-              setPriority('');
-              setDate('');
-              setErrors({});
-            },
-          },
-        ]
-      );
+      setSiteName('');
+      setClientName('');
+      setContact('');
+      setLocation('');
+      setDescription('');
+      setNotes('');
+      setPriority('');
+      setDate('');
+      setErrors({});
+
+      Alert.alert('Survey Added', `Survey ${newSurvey.id} created successfully.`);
     }
   };
 
