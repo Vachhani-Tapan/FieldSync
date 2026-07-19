@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Location from 'expo-location';
 import * as Clipboard from 'expo-clipboard';
 
-export default function Module4Screen() {
+export default function LocationScreen() {
   const [location, setLocation] = useState(null);
   const [fetchedAt, setFetchedAt] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -99,11 +99,6 @@ export default function Module4Screen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Site Location</Text>
-        <Text style={styles.headerSubtitle}>Module 4</Text>
-      </View>
-
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>GPS Location</Text>
@@ -204,24 +199,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    padding: 16,
-    backgroundColor: '#f4f4f4',
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  headerSubtitle: {
-    fontSize: 13,
-    color: '#007bff',
-    fontWeight: '600',
   },
   scrollContent: {
     padding: 16,

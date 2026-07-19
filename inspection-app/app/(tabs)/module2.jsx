@@ -78,11 +78,6 @@ export default function Module2Screen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Create Survey</Text>
-        <Text style={styles.headerSubtitle}>Module 2</Text>
-      </View>
-
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>New Survey Form</Text>
@@ -236,24 +231,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    padding: 16,
-    backgroundColor: '#f4f4f4',
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  headerSubtitle: {
-    fontSize: 13,
-    color: '#007bff',
-    fontWeight: '600',
   },
   scrollContent: {
     padding: 16,

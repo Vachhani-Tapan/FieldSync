@@ -17,11 +17,6 @@ export default function Module1Screen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Smart Field Survey</Text>
-        <Text style={styles.headerStatus}>GPS: Active</Text>
-      </View>
-
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Welcome, {studentDetails.name}</Text>
@@ -58,7 +53,7 @@ export default function Module1Screen() {
           <TouchableOpacity style={styles.actionBtn} onPress={() => router.navigate('/(tabs)/module3')}>
             <Text style={styles.actionBtnText}>📷 Site Photo</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.actionBtn} onPress={() => router.navigate('/(tabs)/module4')}>
+          <TouchableOpacity style={styles.actionBtn} onPress={() => router.navigate('/location')}>
             <Text style={styles.actionBtnText}>📍 Location</Text>
           </TouchableOpacity>
         </View>
@@ -82,24 +77,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    padding: 16,
-    backgroundColor: '#f4f4f4',
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  headerStatus: {
-    fontSize: 13,
-    color: 'green',
-    fontWeight: '600',
   },
   scrollContent: {
     padding: 16,

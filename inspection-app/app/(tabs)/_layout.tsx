@@ -1,3 +1,4 @@
+import { DrawerToggleButton } from '@react-navigation/drawer';
 import { Tabs } from 'expo-router';
 import React from 'react';
 
@@ -13,35 +14,31 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
+        headerShown: true,
+        headerStyle: { backgroundColor: '#f4f4f4' },
+        headerTintColor: '#333',
+        headerLeft: () => <DrawerToggleButton />,
         tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Dashboard',
+          title: 'FieldSync',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="chart.bar.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="module2"
         options={{
-          title: 'Create Survey',
+          title: 'Survey',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="doc.text.fill" color={color} />,
         }}
       />
       <Tabs.Screen
         name="module3"
         options={{
-          title: 'Site Photo',
+          title: 'Camera',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="camera.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="module4"
-        options={{
-          title: 'Location',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="location.fill" color={color} />,
         }}
       />
       <Tabs.Screen

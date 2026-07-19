@@ -124,11 +124,6 @@ export default function Module3Screen() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Site Photo Capture</Text>
-        <Text style={styles.headerSubtitle}>Module 3</Text>
-      </View>
-
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Inspection Photo</Text>
@@ -229,24 +224,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  header: {
-    padding: 16,
-    backgroundColor: '#f4f4f4',
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  headerSubtitle: {
-    fontSize: 13,
-    color: '#007bff',
-    fontWeight: '600',
   },
   scrollContent: {
     padding: 16,
