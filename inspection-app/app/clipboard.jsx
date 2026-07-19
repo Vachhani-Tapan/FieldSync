@@ -59,9 +59,22 @@ export default function ClipboardScreen() {
     { id: 'SRV-G7H8I9', label: 'Gamma Field Survey' },
   ];
 
+  const deleteHistory = () => {
+    setClipboardHistory([]);
+    Alert.alert('Deleted', 'Clipboard history has been cleared.');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.logoContainer}>
+          <View style={styles.logoIcon}>
+            <Text style={styles.logoEmoji}>📋</Text>
+          </View>
+          <Text style={styles.logoTitle}>Clipboard Manager</Text>
+          <Text style={styles.logoSubtitle}>Module 6</Text>
+        </View>
+
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Quick Copy</Text>
           <Text style={styles.cardDescription}>
@@ -119,22 +132,46 @@ export default function ClipboardScreen() {
           <TouchableOpacity style={styles.pasteBtn} onPress={pasteFromClipboard}>
             <Text style={styles.pasteBtnText}>Paste from Clipboard</Text>
           </TouchableOpacity>
-          {pasteContent ? (
-            <TouchableOpacity style={styles.clearBtn} onPress={clearClipboard}>
-              <Text style={styles.clearBtnText}>Clear Clipboard Data</Text>
+        </View>
+
+        <View style={styles.manageSection}>
+          <Text style={styles.sectionHeader}>Manage Data</Text>
+          <TouchableOpacity style={styles.dangerBtn} onPress={clearClipboard}>
+            <Text style={styles.dangerBtnText}>Delete Clipboard Data</Text>
+          </TouchableOpacity>
+          {clipboardHistory.length > 0 && (
+            <TouchableOpacity style={styles.dangerBtnOutline} onPress={deleteHistory}>
+              <Text style={styles.dangerBtnOutlineText}>Delete History</Text>
             </TouchableOpacity>
-          ) : null}
+          )}
         </View>
 
         {clipboardHistory.length > 0 && (
           <View>
-            <Text style={styles.sectionHeader}>History</Text>
+            <View style={styles.historyHeader}>
+              <Text style={styles.sectionHeader}>History</Text>
+              <TouchableOpacity onPress={deleteHistory}>
+                <Text style={styles.deleteHistoryBtn}>Delete All</Text>
+              </TouchableOpacity>
+            </View>
             {clipboardHistory.map((entry, i) => (
               <View key={i} style={styles.historyItem}>
-                <Text style={styles.historyLabel}>{entry.label}</Text>
-                <Text style={styles.historyText} numberOfLines={1}>
-                  {entry.text}
-                </Text>
+                <View style={styles.historyRow}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.historyLabel}>{entry.label}</Text>
+                    <Text style={styles.historyText} numberOfLines={1}>
+                      {entry.text}
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    style={styles.historyDeleteBtn}
+                    onPress={() => {
+                      setClipboardHistory((prev) => prev.filter((_, idx) => idx !== i));
+                    }}
+                  >
+                    <Text style={styles.historyDeleteText}>✕</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             ))}
           </View>
@@ -151,6 +188,45 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     padding: 16,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
+    marginTop: 8,
+  },
+  logoIcon: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    backgroundColor: '#f0f4ff',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  logoEmoji: {
+    fontSize: 30,
+  },
+  logoTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  logoSubtitle: {
+    fontSize: 13,
+    color: '#007bff',
+    fontWeight: '600',
+    marginTop: 2,
+  },
+  historyHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  deleteHistoryBtn: {
+    color: '#dc3545',
+    fontSize: 13,
+    fontWeight: '600',
+    marginTop: 8,
   },
   card: {
     padding: 14,
@@ -217,7 +293,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   pasteArea: {
-    marginBottom: 16,
+    marginBottom: 12,
   },
   textInput: {
     borderWidth: 1,
@@ -241,14 +317,30 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold',
   },
-  clearBtn: {
+  manageSection: {
+    marginBottom: 16,
+    paddingTop: 4,
+  },
+  dangerBtn: {
+    backgroundColor: '#dc3545',
+    padding: 14,
+    borderRadius: 6,
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  dangerBtnText: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  dangerBtnOutline: {
     padding: 14,
     borderRadius: 6,
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#dc3545',
   },
-  clearBtnText: {
+  dangerBtnOutlineText: {
     color: '#dc3545',
     fontSize: 14,
     fontWeight: '600',
@@ -259,6 +351,24 @@ const styles = StyleSheet.create({
     borderColor: '#eee',
     borderRadius: 6,
     marginBottom: 6,
+  },
+  historyRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  historyDeleteBtn: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: '#fee',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 8,
+  },
+  historyDeleteText: {
+    color: '#dc3545',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
   historyLabel: {
     fontSize: 11,

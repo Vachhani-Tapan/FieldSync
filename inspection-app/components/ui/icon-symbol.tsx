@@ -23,6 +23,9 @@ const MAPPING = {
   'camera.fill': 'photo-camera',
   'location.fill': 'location-on',
   'person.2.fill': 'contacts',
+  'clipboard.fill': 'content-paste',
+  'eye.fill': 'visibility',
+  'checkmark.circle.fill': 'check-circle',
 } as IconMapping;
 
 /**

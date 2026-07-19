@@ -24,6 +24,18 @@ export function SurveyProvider({ children }) {
     return newSurvey;
   }, []);
 
+  const updateSurvey = useCallback((id, updates) => {
+    setSurveys((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, ...updates } : s))
+    );
+  }, []);
+
+  const submitSurvey = useCallback((id) => {
+    setSurveys((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, status: 'Completed' } : s))
+    );
+  }, []);
+
   const stats = {
     total: surveys.length,
     completed: surveys.filter((s) => s.status === 'Completed').length,
@@ -32,7 +44,7 @@ export function SurveyProvider({ children }) {
   };
 
   return (
-    <SurveyContext.Provider value={{ surveys, addSurvey, stats }}>
+    <SurveyContext.Provider value={{ surveys, addSurvey, updateSurvey, submitSurvey, stats }}>
       {children}
     </SurveyContext.Provider>
   );

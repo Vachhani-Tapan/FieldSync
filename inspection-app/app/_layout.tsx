@@ -37,6 +37,7 @@ function CustomDrawerContent(props) {
     { label: 'Contacts', icon: 'person.2.fill', route: '/(tabs)/module5', key: '/(tabs)/module5' },
     { label: 'Site Location', icon: 'location.fill', route: '/location', key: '/location' },
     { label: 'Clipboard', icon: 'clipboard.fill', route: '/clipboard', key: '/clipboard' },
+    { label: 'Survey Preview', icon: 'eye.fill', route: '/preview', key: '/preview' },
   ];
 
   return (
@@ -126,6 +127,16 @@ export default function RootLayout() {
                 headerStyle: { backgroundColor: '#f4f4f4' },
                 headerTintColor: '#333',
                 title: 'Clipboard',
+                drawerItemStyle: { display: 'none' },
+              }}
+            />
+            <Drawer.Screen
+              name="preview"
+              options={{
+                headerShown: true,
+                headerStyle: { backgroundColor: '#f4f4f4' },
+                headerTintColor: '#333',
+                title: 'Survey Preview',
                 drawerItemStyle: { display: 'none' },
               }}
             />
