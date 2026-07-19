@@ -38,6 +38,7 @@ function CustomDrawerContent(props) {
     { label: 'Site Location', icon: 'location.fill', route: '/location', key: '/location' },
     { label: 'Clipboard', icon: 'clipboard.fill', route: '/clipboard', key: '/clipboard' },
     { label: 'Survey Preview', icon: 'eye.fill', route: '/preview', key: '/preview' },
+    { label: 'Survey History', icon: 'clock.fill', route: '/history', key: '/history' },
   ];
 
   return (
@@ -137,6 +138,16 @@ export default function RootLayout() {
                 headerStyle: { backgroundColor: '#f4f4f4' },
                 headerTintColor: '#333',
                 title: 'Survey Preview',
+                drawerItemStyle: { display: 'none' },
+              }}
+            />
+            <Drawer.Screen
+              name="history"
+              options={{
+                headerShown: true,
+                headerStyle: { backgroundColor: '#f4f4f4' },
+                headerTintColor: '#333',
+                title: 'Survey History',
                 drawerItemStyle: { display: 'none' },
               }}
             />

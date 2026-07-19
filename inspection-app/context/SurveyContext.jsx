@@ -36,6 +36,10 @@ export function SurveyProvider({ children }) {
     );
   }, []);
 
+  const deleteSurvey = useCallback((id) => {
+    setSurveys((prev) => prev.filter((s) => s.id !== id));
+  }, []);
+
   const stats = {
     total: surveys.length,
     completed: surveys.filter((s) => s.status === 'Completed').length,
@@ -44,7 +48,7 @@ export function SurveyProvider({ children }) {
   };
 
   return (
-    <SurveyContext.Provider value={{ surveys, addSurvey, updateSurvey, submitSurvey, stats }}>
+    <SurveyContext.Provider value={{ surveys, addSurvey, updateSurvey, submitSurvey, deleteSurvey, stats }}>
       {children}
     </SurveyContext.Provider>
   );

@@ -26,6 +26,7 @@ const MAPPING = {
   'clipboard.fill': 'content-paste',
   'eye.fill': 'visibility',
   'checkmark.circle.fill': 'check-circle',
+  'clock.fill': 'history',
 } as IconMapping;
 
 /**

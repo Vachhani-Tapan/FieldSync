@@ -18,7 +18,10 @@ export default function Module2Screen() {
 
   const [siteName, setSiteName] = useState('');
   const [clientName, setClientName] = useState('');
+  const [contact, setContact] = useState('');
+  const [location, setLocation] = useState('');
   const [description, setDescription] = useState('');
+  const [notes, setNotes] = useState('');
   const [priority, setPriority] = useState('');
   const [date, setDate] = useState('');
   const [errors, setErrors] = useState({});
@@ -27,6 +30,7 @@ export default function Module2Screen() {
     const newErrors = {};
     if (!siteName.trim()) newErrors.siteName = 'Site Name is required';
     if (!clientName.trim()) newErrors.clientName = 'Client Name is required';
+    if (!location.trim()) newErrors.location = 'Location is required';
     if (!description.trim()) newErrors.description = 'Description is required';
     if (!priority) newErrors.priority = 'Priority is required';
     if (!date.trim()) {
@@ -43,22 +47,27 @@ export default function Module2Screen() {
       const newSurvey = addSurvey({
         siteName: siteName.trim(),
         clientName: clientName.trim(),
+        contact: contact.trim(),
+        location: location.trim(),
         description: description.trim(),
+        notes: notes.trim(),
         priority,
         date: date.trim(),
-        location: siteName.trim(),
       });
 
       Alert.alert(
         'Survey Created',
-        `Survey ${newSurvey.id} created successfully!\n\nSite: ${siteName}\nClient: ${clientName}\nPriority: ${priority}\nDate: ${date}`,
+        `Survey ${newSurvey.id} created successfully!\n\nSite: ${siteName}\nClient: ${clientName}\nLocation: ${location}\nPriority: ${priority}\nDate: ${date}`,
         [
           {
             text: 'OK',
             onPress: () => {
               setSiteName('');
               setClientName('');
+              setContact('');
+              setLocation('');
               setDescription('');
+              setNotes('');
               setPriority('');
               setDate('');
               setErrors({});
@@ -121,6 +130,35 @@ export default function Module2Screen() {
         </View>
 
         <View style={styles.formGroup}>
+          <Text style={styles.label}>Contact Number</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter contact number"
+            value={contact}
+            onChangeText={setContact}
+            keyboardType="phone-pad"
+            placeholderTextColor="#999"
+          />
+        </View>
+
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>
+            Location <Text style={styles.required}>*</Text>
+          </Text>
+          <TextInput
+            style={[styles.input, errors.location && styles.inputError]}
+            placeholder="Enter site location"
+            value={location}
+            onChangeText={(text) => {
+              setLocation(text);
+              if (errors.location) setErrors({ ...errors, location: '' });
+            }}
+            placeholderTextColor="#999"
+          />
+          {renderError('location')}
+        </View>
+
+        <View style={styles.formGroup}>
           <Text style={styles.label}>
             Description <Text style={styles.required}>*</Text>
           </Text>
@@ -138,6 +176,20 @@ export default function Module2Screen() {
             placeholderTextColor="#999"
           />
           {renderError('description')}
+        </View>
+
+        <View style={styles.formGroup}>
+          <Text style={styles.label}>Additional Notes</Text>
+          <TextInput
+            style={[styles.input, styles.textArea]}
+            placeholder="Any additional notes..."
+            value={notes}
+            onChangeText={setNotes}
+            multiline
+            numberOfLines={3}
+            textAlignVertical="top"
+            placeholderTextColor="#999"
+          />
         </View>
 
         <View style={styles.formGroup}>
